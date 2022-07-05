@@ -16,6 +16,16 @@ async function getUser(req, res, next) {
     }
 }
 
+async function getAllUsers(req, res, next) {
+    try {
+        const users = await User.find().exec();
+        res.status(200).json(users.map(queries.getUser));
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ message: 'Server Error' });
+    }
+}
+
 async function createUser(req, res, next) {
     const { firstname, lastname, ...otherParams } = req.parsedParams;
     try {
@@ -57,6 +67,10 @@ async function createUser(req, res, next) {
     }
 }
 
+async function suspendUser(req, res, next) {
+
+}
+
 async function verifyUserEmail(req, res, next) {
     const { userId } = req.parsedParams;
     try {
@@ -81,8 +95,10 @@ async function updateUser(req, res, next) {
 }
 
 module.exports = {
-    getUser,
     createUser,
+    getUser,
+    getAllUsers,
+    suspendUser,
     updateUser,
     verifyUserEmail,
 };
