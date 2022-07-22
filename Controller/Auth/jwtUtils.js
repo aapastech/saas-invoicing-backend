@@ -11,7 +11,6 @@ function getJwt(data, expiresIn) {
     })
 }
 
-
 function verifyJwt(token) {
     return new Promise((resolve, reject) => {
         jwt.verify(token, process.env.tokenKey, (err, decoded) => {
