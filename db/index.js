@@ -16,7 +16,11 @@ class Mongo {
             port = port ? `:${port}`: '';
             
             const dbName = process.env.DB_NAME || '';
-            const connectionString = `mongodb://${connectAuth}localhost${port}/${dbName}`;
+
+            let connectionString = `mongodb://${connectAuth}localhost${port}/${dbName}`;
+            if(process.env.DB_CONNECTION_STRING) {
+                connectionString = process.env.DB_CONNECTION_STRING;
+            }
             console.log(connectionString);
             mongoose.connect(
                 connectionString,
